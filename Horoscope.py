@@ -21,18 +21,33 @@ def data():
     birth_year=int(input("Enter the year of birth (aaaa): "))
     birth_hour=float(input("Enter your hour of birth (considerate hours as integers and minutes as decimals): "))
     Age=age(current_year, birth_year)
+    return name,current_year,birth_day,birth_month,birth_year,birth_hour,Age
     
 def num_destiny(birth_day,birth_month,birth_year):
-    suma= birth_day+birth_month,birth_year
+    bd=0
+    bm=0
+    by=0
+    while birth_day>0:
+        bd+=birth_day%10
+        birth_day=birth_day//10
+    while birth_month>0:
+        bm+=birth_month%10
+        birth_month=birth_month//10
+    while birth_year>0:
+        by+=birth_year%10
+        birth_year=birth_year//10
+    suma= bd+bm+by
     n=0
     while suma>0:
-        if suma=!11 and suma=!22 and suma=!33:
-            digito1=suma%10
-            n=n+digito
-            digito2=int(suma/10)
-            n=n+digito
+        if suma!=11 and suma!=22 and suma!=33:
+            digito1 = suma % 10
+            digito2 = int(suma / 10)
+            n=digito1 + digito2
+            if n > 9 and n != 11 and n != 22 and n != 33:
+                n = (n % 10) + int(n / 10)
         else:
             n=suma
+        suma=0
     if n==1:
         print("Your destiny number is ",n)
         print("""
@@ -238,14 +253,25 @@ def menu():
 def main():
     menu()
     option=int(input("Select option: "))
+    name=""
+    birth_month=""
+    birth_year=""
+    current_year=""
     while True:
         if option==1:
-            if name=="" or birth_month="" or current_year="":
-                data()
+            if name=="" or birth_month=="" or current_year=="":
+                datos=data()
+                name=datos[0]
+                current_year=datos[1]
+                birth_day=int(datos[2])
+                birth_month=int(datos[3])
+                birth_year=int(datos[4])
+                birth_hour=datos[5]
+                Age=datos[6]
             else:
                 print("Name: ",name)
                 print("Birth date: ",birth_day,"/",birth_month,"/",birth_year)
-                print("Hour of birth: ",birth_hour,"am" if birth_hour<12 else "pm")
+                print("Hour of birth: ",birth_hour,("am" if birth_hour<12 else "pm"))
                 print("Age: ",Age)
                 change=input("Do you want to change them? yes/no: ")
                 if change=="yes":
@@ -261,6 +287,7 @@ def main():
             tests()
         else:
             print("That option does not exist")
+        menu()
         option=int(input("Select another option: "))
             
     
