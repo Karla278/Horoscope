@@ -239,15 +239,36 @@ def tests():
     print("Age: ",age(current_year, birth_year))
     print("Zodiac sign: ", zodiac(birth_day, birth_month))
     print("Expected result: 20, LEO")
+
+import random
+def compatibilidad(signo1, signo2):
+    Rate=["High", "Low", "Medium"]
+    matriz=[["capricorn", "aquarius", "pisces", "aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius"]]
+    for element in matriz[0]:
+        row=[]
+        for i in range(12):
+           row.append(Rate[random.randint(0,2)])
+        row.insert(0,element)
+        matriz.append(row)
+    matriz[0].insert(0,"vacio")        
+    columna=matriz[0].index(signo1)
+    fila=matriz[0].index(signo2)
+    compatibilidad=matriz[fila][columna]
+    return compatibilidad
+
+def nombre_astral(nombre, signo):
+    name= nombre[:3] + signo[-3:]
+    print("Your astral name is: ", name.upper())
     
-            
 def menu():
     print("HOROSCOPE")
     print("1. My data")
     print("2. I want to know my zodiac sign")
     print("3. Divine number and it´s meaning")
-    print("4. Run tests")
-    print("5. Exit")
+    print("4. Compatibility")
+    print("5. Astral name")
+    print("6. Run tests")
+    print("7. Exit")
 
 
 def main():
@@ -277,13 +298,19 @@ def main():
                 if change=="yes":
                     data()
         elif option==2:
-            print("Your zodiac sign is ", zodiac(birth_day, birth_month))
+            print("Your zodiac sign is ", zodiac(birth_day, birth_month).upper())
         elif option ==3:
             num_destiny(birth_day,birth_month,birth_year)
-        elif option==5:
+        elif option ==4:
+            signo1=input("Enter sign 1: ").lower()
+            signo2=input("Enter sign 2: ").lower()
+            print("The compatibility between these signs is ",compatibilidad(signo1, signo2))
+        elif option ==5:
+            nombre_astral(name, zodiac(birth_day, birth_month))
+        elif option==7:
             print("End of consult")
             break
-        elif option==4:
+        elif option==6:
             tests()
         else:
             print("That option does not exist")
