@@ -259,16 +259,32 @@ def compatibilidad(signo1, signo2):
 def nombre_astral(nombre, signo):
     name= nombre[:3] + signo[-3:]
     print("Your astral name is: ", name.upper())
+
+def astro_events(fecha, archivo):
+    with open (archivo, "r") as file:
+        res=""
+        for line in file:
+            if line[:10] == fecha:
+                res=line[13:]
+        if res=="":
+            print("There is no important astrological event in this date")
+        else: 
+            print(res)
     
 def menu():
+    print("\n")
+    print("...................................................................................")
     print("HOROSCOPE")
     print("1. My data")
     print("2. I want to know my zodiac sign")
-    print("3. Divine number and it´s meaning")
+    print("3. Destiny number and it´s meaning")
     print("4. Compatibility")
     print("5. Astral name")
-    print("6. Run tests")
-    print("7. Exit")
+    print("6. Astrological events")
+    print("7. Run tests")
+    print("8. Exit")
+    print("...................................................................................")
+    print("\n")
 
 
 def main():
@@ -280,6 +296,7 @@ def main():
     current_year=""
     while True:
         if option==1:
+            print("\n")
             if name=="" or birth_month=="" or current_year=="":
                 datos=data()
                 name=datos[0]
@@ -298,28 +315,37 @@ def main():
                 if change=="yes":
                     data()
         elif option==2:
+            print("\n")
             print("Your zodiac sign is ", zodiac(birth_day, birth_month).upper())
         elif option ==3:
+            print("\n")
             num_destiny(birth_day,birth_month,birth_year)
         elif option ==4:
+            print("\n")
             signo1=input("Enter sign 1: ").lower()
             signo2=input("Enter sign 2: ").lower()
             print("The compatibility between these signs is ",compatibilidad(signo1, signo2))
         elif option ==5:
+            print("\n")
             nombre_astral(name, zodiac(birth_day, birth_month))
-        elif option==7:
+        elif option ==6:
+            print("\n")
+            fecha=input("In wich date do you wanna consult? Enter dd/mm/yyy: ")
+            archivo="astrological_events.txt"
+            astro_events(fecha, archivo)
+        elif option==8:
+            print("\n")
             print("End of consult")
             break
-        elif option==6:
+        elif option==7:
+            print("\n")
             tests()
         else:
+            print("\n")
             print("That option does not exist")
         menu()
         option=int(input("Select another option: "))
             
     
 main()
-            
-
-
-
+        
