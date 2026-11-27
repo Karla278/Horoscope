@@ -1,19 +1,20 @@
 """
 Horoscope
 Karla D
-This program will simulate a horoscope consultation.
-The user will enter personal information such as their name,
-birth date and birth hour. The program will
-automatically determine the user's zodiac sign and
-generate personalized predictions, advice, and recommendations
-related to personality and daily life.
+This program simulates a complete digital horoscope and astrology consultation. 
+Users enter personal information such as their name, birth date, and birth hour 
+to generate a personalized profile. Based on these inputs, the system automatically 
+calculates their age, determines their zodiac sign, computes their numerological 
+destiny number with detailed personality insights, evaluates compatibility between 
+zodiac signs, creates a custom astral alias, manages a local database of astrological 
+events, and fetches real-time daily horoscope predictions from Vogue India via web scraping.
 
 """
 
 import random
 import requests
 from bs4 import BeautifulSoup
-
+import os
 
 def age(current_year, birth_year):
     """
@@ -373,7 +374,7 @@ def consult_horoscope(sign, day, month, year):
         
     except Exception as e:
         return f"An error has ocured when loading the page: {e}"
-    85
+    
 
 
 def menu():
@@ -445,7 +446,8 @@ def main():
                 astral_name(name, zodiac(birth_day, birth_month))
         elif option == 6:
             print("\n")
-            archivo = "astrological_events.txt"
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            archivo = os.path.join(base_dir, "astrological_events.txt")
             astro_events(archivo)
         elif option == 7:
             print("\n")
@@ -467,5 +469,6 @@ def main():
         option = int(input("Select another option: "))
             
     
-main()
+if __name__ == "__main__":
+    main()
         
